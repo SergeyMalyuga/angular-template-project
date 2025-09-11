@@ -1,10 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AUTH_TOKEN_KEY_NAME} from '../constants/const';
-import {Token} from '../models/token';
+import { Injectable } from '@angular/core';
+import { AUTH_TOKEN_KEY_NAME } from '../constants/const';
+import { Token } from '../models/token';
 
-@Injectable(
-  {providedIn: 'root'}
-)
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   public getToken(): Token | null {
     const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

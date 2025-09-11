@@ -1,14 +1,10 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {HeaderComponent} from '../../features/header/header.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HeaderComponent } from '../../features/header/header.component';
 
 @Component({
   selector: 'app-favorites',
-  imports: [
-    HeaderComponent
-  ],
+  imports: [HeaderComponent],
   templateUrl: './favorites-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoritesPageComponent {
-
-}
+export class FavoritesPageComponent {}
