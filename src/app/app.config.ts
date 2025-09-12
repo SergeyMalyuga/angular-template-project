@@ -8,12 +8,15 @@ import {
 } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { appReducer } from './store/app/app.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { OffersEffects } from './store/offers/effects/offers.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore(appReducer),
+    provideEffects(OffersEffects),
     provideHttpClient(withInterceptorsFromDi()),
   ],
 };

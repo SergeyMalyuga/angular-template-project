@@ -6,9 +6,9 @@ import {
   loadOffersData,
   loadOffersDataFailure,
   loadOffersDataSuccess,
-} from './offers.actions';
+} from './actions/offers.actions';
 
-const offersAdapter: EntityAdapter<OfferPreview> =
+export const offersAdapter: EntityAdapter<OfferPreview> =
   createEntityAdapter<OfferPreview>();
 const initialState: OffersState = offersAdapter.getInitialState({
   isLoading: false,
