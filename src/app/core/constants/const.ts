@@ -7,6 +7,13 @@ export enum AppRoute {
   FAVORITES = 'favorites',
 }
 
+export enum APIRoute {
+  LOGIN = 'login',
+  COMMENTS = 'comments',
+  FAVORITE = 'favorite',
+  OFFERS = 'offers',
+}
+
 export enum AuthorizationStatus {
   AUTH = 'authenticated',
   UN_AUTH = 'unauthorized',
@@ -72,6 +79,8 @@ export const DEFAULT_CITY: City = {
     zoom: 10,
   },
 };
+
+export const DEFAULT_USER = undefined;
 
 export const AUTH_TOKEN_KEY_NAME = 'auth-token';
 

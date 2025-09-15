@@ -8,6 +8,7 @@ export interface AppState {
   /*  user: UserState;
   currentCity: CityState;
   favoriteOffers: FavoriteOffersState;*/
+  user: UserState;
   city: City;
   offers: OffersState;
 }
