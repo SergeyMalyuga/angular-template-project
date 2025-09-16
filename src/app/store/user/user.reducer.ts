@@ -5,6 +5,9 @@ import {
   checkAuthStatus,
   checkAuthStatusFailure,
   checkAuthStatusSuccess,
+  login,
+  loginFailure,
+  loginSuccess,
 } from './actions/user.actions';
 
 const initialState: UserState = {
@@ -16,7 +19,6 @@ export const userReducer = createReducer(
   initialState,
   on(checkAuthStatus, (state) => ({
     ...state,
-    authorizationStatus: AuthorizationStatus.UN_AUTH,
   })),
   on(checkAuthStatusSuccess, (state, { user }) => ({
     ...state,
@@ -26,5 +28,18 @@ export const userReducer = createReducer(
   on(checkAuthStatusFailure, (state) => ({
     ...state,
     authorizationStatus: AuthorizationStatus.UN_AUTH,
+  })),
+  on(login, (state) => ({
+    ...state,
+    authorizationStatus: AuthorizationStatus.UN_AUTH,
+  })),
+  on(loginSuccess, (state, { user }) => ({
+    ...state,
+    user,
+    authorizationStatus: AuthorizationStatus.AUTH,
+  })),
+  on(loginFailure, (state) => ({
+    ...state,
+    AuthorizationStatus: AuthorizationStatus.UN_AUTH,
   })),
 );

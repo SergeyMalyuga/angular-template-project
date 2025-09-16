@@ -20,6 +20,7 @@ export class LoginEffects {
       switchMap(({ credentials }: { credentials: LoginRequest }) =>
         this.userService.postUser(credentials).pipe(
           map((user: User) => {
+            console.log(user);
             this.authService.setToken(user.token);
             return actions.loginSuccess({ user });
           }),

@@ -12,9 +12,13 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../core/models/app-state';
 import { OfferPreview } from '../../core/models/offers';
 import { City } from '../../core/models/city';
-import { DEFAULT_CITY } from '../../core/constants/const';
+import { AuthorizationStatus, DEFAULT_CITY } from '../../core/constants/const';
 import { combineLatest, map, Subject, takeUntil, tap } from 'rxjs';
-import { selectCity, selectOffers } from '../../store/app/app.selectors';
+import {
+  selectAuthStatus,
+  selectCity,
+  selectOffers,
+} from '../../store/app/app.selectors';
 import { OfferListComponent } from '../../features/offer-list/offer-list.component';
 
 @Component({
@@ -30,6 +34,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   public city: WritableSignal<City> = signal<City>(DEFAULT_CITY);
   public activeCard: WritableSignal<OfferPreview | null> =
     signal<OfferPreview | null>(null);
+  public authStatus: WritableSignal<AuthorizationStatus> =
+    signal<AuthorizationStatus>(AuthorizationStatus.UNKNOWN);
 
   public ngOnInit(): void {
     combineLatest([
@@ -44,6 +50,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
         takeUntil(this.destroySubject),
       )
       .subscribe((offers) => this.offers.set(offers));
+    this.store
+      .select(selectAuthStatus)
+      .subscribe((authStatus: AuthorizationStatus) =>
+        this.authStatus.set(authStatus),
+      );
   }
 
   public ngOnDestroy(): void {

@@ -22,18 +22,19 @@
       <section class="login">
         <h1 class="login__title">Sign in</h1>
         <form
+          (ngSubmit)="onSubmit()"
           [formGroup]="formGroup"
           class="login__form form"
           action="#"
           method="post"
         >
           <div class="login__input-wrapper form__input-wrapper">
-            <label class="visually-hidden" for="login__input form__input"
+            <label class="visually-hidden" for="email__input form__input"
               >E-mail</label
             >
             <input
               formControlName="email"
-              id="login__input form__input"
+              id="email__input form__input"
               class="login__input form__input"
               type="email"
               name="email"
@@ -83,7 +84,11 @@
               >
             </div>
           </div>
-          <button class="login__submit form__submit button" type="submit">
+          <button
+            class="login__submit form__submit button"
+            type="submit"
+            [disabled]="formGroup.invalid"
+          >
             Sign in
           </button>
         </form>
