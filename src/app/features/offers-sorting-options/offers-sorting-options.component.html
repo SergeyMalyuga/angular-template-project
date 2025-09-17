@@ -1,15 +1,55 @@
 <form class="places__sorting" action="#" method="get">
   <span class="places__sorting-caption">Sort by</span>
-  <span class="places__sorting-type" tabindex="0" appToggleSortOptions (sortOptionsToggled)="onSortingOptionsToggled($event)">
+  <span
+    class="places__sorting-type"
+    tabindex="0"
+    appToggleSortOptions
+    (sortOptionsToggled)="onSortingOptionsToggled($event)"
+  >
     Popular
     <svg class="places__sorting-arrow" width="7" height="4">
       <use xlink:href="#icon-arrow-select"></use>
     </svg>
   </span>
-  <ul class="places__options places__options--custom" [class.places__options--opened]="isOpened()">
-    <li class="places__option places__option--active" tabindex="0">{{sortType.POPULAR}}</li>
-    <li class="places__option" tabindex="0">{{sortType.PRICE_LOW_TO_HIGH}}</li>
-    <li class="places__option" tabindex="0">{{sortType.PRICE_HIGH_TO_LOW}}</li>
-    <li class="places__option" tabindex="0">{{sortType.TOP_RATED_FIRST}}</li>
+  <ul
+    class="places__options places__options--custom"
+    [class.places__options--opened]="isOpened()"
+  >
+    <li
+      class="places__option places__option--active"
+      tabindex="0"
+      [attr.data-sort-type]="sortTypeKeys[sortType.POPULAR]"
+      appSelectOffersSortType
+      (sortTypeSelected)="sortTypeSelected.emit($event)"
+    >
+      {{ sortType.POPULAR }}
+    </li>
+    <li
+      class="places__option"
+      tabindex="0"
+      [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_LOW_TO_HIGH]"
+      appSelectOffersSortType
+      (sortTypeSelected)="sortTypeSelected.emit($event)"
+    >
+      {{ sortType.PRICE_LOW_TO_HIGH }}
+    </li>
+    <li
+      class="places__option"
+      tabindex="0"
+      [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_HIGH_TO_LOW]"
+      appSelectOffersSortType
+      (sortTypeSelected)="sortTypeSelected.emit($event)"
+    >
+      {{ sortType.PRICE_HIGH_TO_LOW }}
+    </li>
+    <li
+      class="places__option"
+      tabindex="0"
+      [attr.data-sort-type]="sortTypeKeys[sortType.TOP_RATED_FIRST]"
+      appSelectOffersSortType
+      (sortTypeSelected)="sortTypeSelected.emit($event)"
+    >
+      {{ sortType.TOP_RATED_FIRST }}
+    </li>
   </ul>
 </form>

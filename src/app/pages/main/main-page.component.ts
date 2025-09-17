@@ -12,7 +12,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../core/models/app-state';
 import { OfferPreview } from '../../core/models/offers';
 import { City } from '../../core/models/city';
-import { AuthorizationStatus, DEFAULT_CITY } from '../../core/constants/const';
+import {
+  AuthorizationStatus,
+  DEFAULT_CITY,
+  sortType,
+} from '../../core/constants/const';
 import { combineLatest, map, Subject, takeUntil, tap } from 'rxjs';
 import {
   selectAuthStatus,
@@ -22,6 +26,8 @@ import {
 import { OfferListComponent } from '../../features/offer-list/offer-list.component';
 import { CitiesListComponent } from '../../features/cities-list/cities-list.component';
 import { OffersSortingOptionsComponent } from '../../features/offers-sorting-options/offers-sorting-options.component';
+import { OffersSortPipe } from './pipes/offers-sort.pipe';
+import { OffersSortService } from '../../core/services/offers-sort.service';
 
 @Component({
   selector: 'app-main',
@@ -30,7 +36,9 @@ import { OffersSortingOptionsComponent } from '../../features/offers-sorting-opt
     OfferListComponent,
     CitiesListComponent,
     OffersSortingOptionsComponent,
+    OffersSortPipe,
   ],
+  providers: [OffersSortService],
   templateUrl: './main-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -39,6 +47,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private destroySubject = new Subject<void>();
   public offers: WritableSignal<OfferPreview[]> = signal<OfferPreview[]>([]);
   public currentCity: WritableSignal<City> = signal<City>(DEFAULT_CITY);
+  public currentSortType: WritableSignal<sortType> = signal<sortType>(
+    sortType.POPULAR,
+  );
   public activeCard: WritableSignal<OfferPreview | null> =
     signal<OfferPreview | null>(null);
   public authStatus: WritableSignal<AuthorizationStatus> =
@@ -64,6 +75,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
       .subscribe((authStatus: AuthorizationStatus) =>
         this.authStatus.set(authStatus),
       );
+  }
+
+  public onSortTypeSelected(type: sortType): void {
+    this.currentSortType.set(type);
   }
 
   public ngOnDestroy(): void {

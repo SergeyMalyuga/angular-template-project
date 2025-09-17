@@ -1,11 +1,18 @@
-import {Directive, EventEmitter, HostListener, Output, signal, WritableSignal} from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  HostListener,
+  Output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 
 @Directive({
   selector: '[appToggleSortOptions]',
 })
-
 export class ToggleSortOptionsDirective {
-  @Output() sortOptionsToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() sortOptionsToggled: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
   private isOpened: WritableSignal<boolean> = signal<boolean>(false);
 
   @HostListener('click')

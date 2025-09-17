@@ -87,6 +87,13 @@ export enum sortType {
   TOP_RATED_FIRST = 'Top rated first',
 }
 
+export const sortTypeKeys = {
+  [sortType.POPULAR]: 'POPULAR',
+  [sortType.PRICE_LOW_TO_HIGH]: 'PRICE_LOW_TO_HIGH',
+  [sortType.PRICE_HIGH_TO_LOW]: 'PRICE_HIGH_TO_LOW',
+  [sortType.TOP_RATED_FIRST]: 'TOP_RATED_FIRST',
+};
+
 export const DEFAULT_USER = undefined;
 
 export const AUTH_TOKEN_KEY_NAME = 'auth-token';
