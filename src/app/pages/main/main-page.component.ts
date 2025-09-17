@@ -21,10 +21,16 @@ import {
 } from '../../store/app/app.selectors';
 import { OfferListComponent } from '../../features/offer-list/offer-list.component';
 import { CitiesListComponent } from '../../features/cities-list/cities-list.component';
+import { OffersSortingOptionsComponent } from '../../features/offers-sorting-options/offers-sorting-options.component';
 
 @Component({
   selector: 'app-main',
-  imports: [HeaderComponent, OfferListComponent, CitiesListComponent],
+  imports: [
+    HeaderComponent,
+    OfferListComponent,
+    CitiesListComponent,
+    OffersSortingOptionsComponent,
+  ],
   templateUrl: './main-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

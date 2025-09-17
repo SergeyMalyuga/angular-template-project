@@ -80,6 +80,13 @@ export const DEFAULT_CITY: City = {
   },
 };
 
+export enum sortType {
+  POPULAR = 'Popular',
+  PRICE_LOW_TO_HIGH = 'Price: low to high',
+  PRICE_HIGH_TO_LOW = 'Price: high to low',
+  TOP_RATED_FIRST = 'Top rated first',
+}
+
 export const DEFAULT_USER = undefined;
 
 export const AUTH_TOKEN_KEY_NAME = 'auth-token';
