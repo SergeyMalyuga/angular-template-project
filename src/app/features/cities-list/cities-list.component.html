@@ -1,0 +1,14 @@
+<ul class="locations__list tabs__list">
+  @for (city of cities; track city.name) {
+    <li class="locations__item">
+      <a
+        class="locations__item-link tabs__item"
+        [class.tabs__item--active]="currentCity.name === city.name"
+        href="#"
+        (click)="selectCity(city)"
+      >
+        <span>{{ city.name }}</span>
+      </a>
+    </li>
+  }
+</ul>

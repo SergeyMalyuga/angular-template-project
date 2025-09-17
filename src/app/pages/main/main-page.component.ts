@@ -20,10 +20,11 @@ import {
   selectOffers,
 } from '../../store/app/app.selectors';
 import { OfferListComponent } from '../../features/offer-list/offer-list.component';
+import { CitiesListComponent } from '../../features/cities-list/cities-list.component';
 
 @Component({
   selector: 'app-main',
-  imports: [HeaderComponent, OfferListComponent],
+  imports: [HeaderComponent, OfferListComponent, CitiesListComponent],
   templateUrl: './main-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -31,7 +32,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private store: Store<AppState> = inject(Store<AppState>);
   private destroySubject = new Subject<void>();
   public offers: WritableSignal<OfferPreview[]> = signal<OfferPreview[]>([]);
-  public city: WritableSignal<City> = signal<City>(DEFAULT_CITY);
+  public currentCity: WritableSignal<City> = signal<City>(DEFAULT_CITY);
   public activeCard: WritableSignal<OfferPreview | null> =
     signal<OfferPreview | null>(null);
   public authStatus: WritableSignal<AuthorizationStatus> =
@@ -43,7 +44,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.store.select(selectCity),
     ])
       .pipe(
-        tap(([, city]: [OfferPreview[], City]): void => this.city.set(city)),
+        tap(([, city]: [OfferPreview[], City]): void =>
+          this.currentCity.set(city),
+        ),
         map(([offers, city]: [OfferPreview[], City]): OfferPreview[] =>
           offers.filter((offer) => offer.city.name === city.name),
         ),

@@ -4,45 +4,18 @@
     <h1 class="visually-hidden">Cities</h1>
     <div class="tabs">
       <section class="locations container">
-        <ul class="locations__list tabs__list">
-          <li class="locations__item">
-            <a class="locations__item-link tabs__item" href="#">
-              <span>Paris</span>
-            </a>
-          </li>
-          <li class="locations__item">
-            <a class="locations__item-link tabs__item" href="#">
-              <span>Cologne</span>
-            </a>
-          </li>
-          <li class="locations__item">
-            <a class="locations__item-link tabs__item" href="#">
-              <span>Brussels</span>
-            </a>
-          </li>
-          <li class="locations__item">
-            <a class="locations__item-link tabs__item tabs__item--active">
-              <span>Amsterdam</span>
-            </a>
-          </li>
-          <li class="locations__item">
-            <a class="locations__item-link tabs__item" href="#">
-              <span>Hamburg</span>
-            </a>
-          </li>
-          <li class="locations__item">
-            <a class="locations__item-link tabs__item" href="#">
-              <span>Dusseldorf</span>
-            </a>
-          </li>
-        </ul>
+        <app-cities-list [currentCity]="currentCity()"></app-cities-list>
       </section>
     </div>
     <div class="cities">
       <div class="cities__places-container container">
         <section class="cities__places places">
           <h2 class="visually-hidden">Places</h2>
-          <b class="places__found">312 places to stay in Amsterdam</b>
+          <b class="places__found"
+            >{{ offers().length }}
+            {{ offers().length > 1 ? "places" : "place" }} to stay in
+            {{ currentCity().name }}</b
+          >
           <form class="places__sorting" action="#" method="get">
             <span class="places__sorting-caption">Sort by</span>
             <span class="places__sorting-type" tabindex="0">
