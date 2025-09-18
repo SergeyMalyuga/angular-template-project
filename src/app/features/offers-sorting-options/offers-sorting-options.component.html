@@ -20,7 +20,7 @@
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.POPULAR]"
       appSelectOffersSortType
-      (sortTypeSelected)="sortTypeSelected.emit($event)"
+      (sortTypeSelected)="onSortTypeSelected($event)"
     >
       {{ sortType.POPULAR }}
     </li>
@@ -29,7 +29,7 @@
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_LOW_TO_HIGH]"
       appSelectOffersSortType
-      (sortTypeSelected)="sortTypeSelected.emit($event)"
+      (sortTypeSelected)="onSortTypeSelected($event)"
     >
       {{ sortType.PRICE_LOW_TO_HIGH }}
     </li>
@@ -38,7 +38,7 @@
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_HIGH_TO_LOW]"
       appSelectOffersSortType
-      (sortTypeSelected)="sortTypeSelected.emit($event)"
+      (sortTypeSelected)="onSortTypeSelected($event)"
     >
       {{ sortType.PRICE_HIGH_TO_LOW }}
     </li>
@@ -47,7 +47,7 @@
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.TOP_RATED_FIRST]"
       appSelectOffersSortType
-      (sortTypeSelected)="sortTypeSelected.emit($event)"
+      (sortTypeSelected)="onSortTypeSelected($event)"
     >
       {{ sortType.TOP_RATED_FIRST }}
     </li>

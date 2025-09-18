@@ -27,4 +27,9 @@ export class OffersSortingOptionsComponent {
   public onSortingOptionsToggled(isOpen: boolean) {
     this.isOpened.set(isOpen);
   }
+
+  public onSortTypeSelected(type: sortType) {
+    this.sortTypeSelected.emit(type);
+    this.isOpened.set(false);
+  }
 }
