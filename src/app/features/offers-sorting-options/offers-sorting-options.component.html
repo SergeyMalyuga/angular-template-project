@@ -16,7 +16,8 @@
     [class.places__options--opened]="isOpened()"
   >
     <li
-      class="places__option places__option--active"
+      class="places__option"
+      [class.places__option--active]="currentSortType() === sortType.POPULAR"
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.POPULAR]"
       appSelectOffersSortType
@@ -26,6 +27,7 @@
     </li>
     <li
       class="places__option"
+      [class.places__option--active]="currentSortType() === sortType.PRICE_LOW_TO_HIGH"
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_LOW_TO_HIGH]"
       appSelectOffersSortType
@@ -35,6 +37,7 @@
     </li>
     <li
       class="places__option"
+      [class.places__option--active]="currentSortType() === sortType.PRICE_HIGH_TO_LOW"
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_HIGH_TO_LOW]"
       appSelectOffersSortType
@@ -44,6 +47,7 @@
     </li>
     <li
       class="places__option"
+      [class.places__option--active]="currentSortType() === sortType.TOP_RATED_FIRST"
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.TOP_RATED_FIRST]"
       appSelectOffersSortType
