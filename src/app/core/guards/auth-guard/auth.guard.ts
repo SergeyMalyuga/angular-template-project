@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { AppRoute, AuthorizationStatus } from '../../constants/const';
-import { AppState } from '../../models/app-state';
+import { AppState } from '../../models/app.state';
 import { Store } from '@ngrx/store';
 import { selectAuthStatus } from '../../../store/app/app.selectors';
 import { filter, map, Observable, take } from 'rxjs';

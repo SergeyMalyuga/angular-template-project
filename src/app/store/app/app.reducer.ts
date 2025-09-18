@@ -1,11 +1,13 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { AppState } from '../../core/models/app-state';
+import { AppState } from '../../core/models/app.state';
 import { offersReducer } from '../offers/offers.reducer';
 import { cityReducer } from '../city/city.reducer';
 import { userReducer } from '../user/user.reducer';
+import {favoriteOffersReducer} from '../favorite-offers/favorite-offers.reducer';
 
 export const appReducer: ActionReducerMap<AppState> = {
   offers: offersReducer,
   city: cityReducer,
   user: userReducer,
+  favoriteOffers: favoriteOffersReducer,
 };

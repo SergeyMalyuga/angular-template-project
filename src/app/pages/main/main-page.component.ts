@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { HeaderComponent } from '../../features/header/header.component';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/models/app-state';
+import { AppState } from '../../core/models/app.state';
 import { OfferPreview } from '../../core/models/offers';
 import { City } from '../../core/models/city';
 import {

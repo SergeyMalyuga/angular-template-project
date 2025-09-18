@@ -14,13 +14,19 @@ import { OffersEffects } from './store/offers/effects/offers.effects';
 import { AuthEffects } from './store/user/effects/auth.effects';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoginEffects } from './store/user/effects/login.effects';
+import { FavoriteOffersEffects } from './store/favorite-offers/effects/favorite-offers.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore(appReducer),
-    provideEffects(OffersEffects, AuthEffects, LoginEffects),
+    provideEffects(
+      OffersEffects,
+      AuthEffects,
+      LoginEffects,
+      FavoriteOffersEffects,
+    ),
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,

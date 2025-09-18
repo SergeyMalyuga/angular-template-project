@@ -9,7 +9,7 @@ import {
 import { CITY_LOCATIONS } from '../../core/constants/const';
 import { City } from '../../core/models/city';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/models/app-state';
+import { AppState } from '../../core/models/app.state';
 import { changeCity } from '../../store/city/actions/city.actions';
 
 @Component({

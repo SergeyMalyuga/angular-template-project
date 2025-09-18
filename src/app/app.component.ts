@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppState } from './core/models/app-state';
+import { AppState } from './core/models/app.state';
 import { Store } from '@ngrx/store';
 import { loadOffersData } from './store/offers/actions/offers.actions';
 import { checkAuthStatus } from './store/user/actions/user.actions';
+import {loadFavoriteOffers} from './store/favorite-offers/actions/favorite-offers.actions';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
 
   public ngOnInit() {
     this.store.dispatch(loadOffersData());
+    this.store.dispatch(loadFavoriteOffers());
     this.store.dispatch(checkAuthStatus());
   }
 }

@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
 import { OfferPreview } from '../../core/models/offers';
-import { OffersState } from '../../core/models/offers-state';
+import { OffersState } from '../../core/models/offers.state';
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   loadOffersData,
