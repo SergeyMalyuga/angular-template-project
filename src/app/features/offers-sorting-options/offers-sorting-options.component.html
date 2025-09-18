@@ -6,7 +6,7 @@
     appToggleSortOptions
     (sortOptionsToggled)="onSortingOptionsToggled($event)"
   >
-    Popular
+    {{currentSortType()}}
     <svg class="places__sorting-arrow" width="7" height="4">
       <use xlink:href="#icon-arrow-select"></use>
     </svg>
