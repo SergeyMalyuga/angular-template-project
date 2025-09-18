@@ -4,7 +4,7 @@
     <h1 class="visually-hidden">Cities</h1>
     <div class="tabs">
       <section class="locations container">
-        <app-cities-list [currentCity]="currentCity()"></app-cities-list>
+        <app-cities-list [currentCity]="currentCity()" (citySelected)="onCitySelected()"></app-cities-list>
       </section>
     </div>
     <div class="cities">
@@ -16,7 +16,7 @@
             {{ offers().length > 1 ? "places" : "place" }} to stay in
             {{ currentCity().name }}</b
           >
-          <app-offers-sorting-options
+          <app-offers-sorting-options [currentSortType]="currentSortType()"
             (sortTypeSelected)="onSortTypeSelected($event)"
           ></app-offers-sorting-options>
           <app-offers-list

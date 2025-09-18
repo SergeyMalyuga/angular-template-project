@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output, signal, WritableSignal,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal, WritableSignal,} from '@angular/core';
 import {sortType, sortTypeKeys} from '../../core/constants/const';
 import {ToggleSortOptionsDirective} from './directives/toggle-offers-sorting-options.directive';
 import {SelectOffersSortTypeDirective} from './directives/select-offers-sort-type.directive';
@@ -10,11 +10,11 @@ import {SelectOffersSortTypeDirective} from './directives/select-offers-sort-typ
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OffersSortingOptionsComponent {
+  @Input({required:true}) currentSortType!: sortType;
   @Output() sortTypeSelected: EventEmitter<sortType> =
     new EventEmitter<sortType>();
 
   public readonly sortType = sortType;
-  public currentSortType: WritableSignal<sortType> = signal<sortType>(sortType.POPULAR);
   public isOpened: WritableSignal<boolean> = signal<boolean>(false);
   public readonly sortTypeKeys = sortTypeKeys;
 
@@ -24,7 +24,7 @@ export class OffersSortingOptionsComponent {
 
   public onSortTypeSelected(type: sortType) {
     this.sortTypeSelected.emit(type);
-    this.currentSortType.set(type);
+    this.currentSortType = type;
     this.isOpened.set(false);
   }
 }

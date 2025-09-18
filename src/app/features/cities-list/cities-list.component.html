@@ -5,7 +5,7 @@
         class="locations__item-link tabs__item"
         [class.tabs__item--active]="currentCity.name === city.name"
         href="#"
-        (click)="selectCity(city)"
+        (click)="onCitySelected(city)"
       >
         <span>{{ city.name }}</span>
       </a>

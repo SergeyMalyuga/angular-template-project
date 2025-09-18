@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, EventEmitter,
   inject,
-  Input,
+  Input, Output,
 } from '@angular/core';
 import { CITY_LOCATIONS } from '../../core/constants/const';
 import { City } from '../../core/models/city';
@@ -17,11 +17,13 @@ import { changeCity } from '../../store/city/actions/city.actions';
 })
 export class CitiesListComponent {
   @Input({ required: true }) currentCity!: City;
+  @Output() citySelected: EventEmitter<void> = new EventEmitter<void>();
 
   private store = inject(Store<AppState>);
   public readonly cities: City[] = CITY_LOCATIONS;
 
-  public selectCity(city: City): void {
+  public onCitySelected(city: City): void {
     this.store.dispatch(changeCity({ city }));
+    this.citySelected.emit();
   }
 }
