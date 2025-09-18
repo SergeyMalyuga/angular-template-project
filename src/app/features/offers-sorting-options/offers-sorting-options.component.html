@@ -6,7 +6,7 @@
     appToggleSortOptions
     (sortOptionsToggled)="onSortingOptionsToggled($event)"
   >
-    {{currentSortType}}
+    {{ currentSortType }}
     <svg class="places__sorting-arrow" width="7" height="4">
       <use xlink:href="#icon-arrow-select"></use>
     </svg>
@@ -27,7 +27,9 @@
     </li>
     <li
       class="places__option"
-      [class.places__option--active]="currentSortType === sortType.PRICE_LOW_TO_HIGH"
+      [class.places__option--active]="
+        currentSortType === sortType.PRICE_LOW_TO_HIGH
+      "
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_LOW_TO_HIGH]"
       appSelectOffersSortType
@@ -37,7 +39,9 @@
     </li>
     <li
       class="places__option"
-      [class.places__option--active]="currentSortType === sortType.PRICE_HIGH_TO_LOW"
+      [class.places__option--active]="
+        currentSortType === sortType.PRICE_HIGH_TO_LOW
+      "
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.PRICE_HIGH_TO_LOW]"
       appSelectOffersSortType
@@ -47,7 +51,9 @@
     </li>
     <li
       class="places__option"
-      [class.places__option--active]="currentSortType === sortType.TOP_RATED_FIRST"
+      [class.places__option--active]="
+        currentSortType === sortType.TOP_RATED_FIRST
+      "
       tabindex="0"
       [attr.data-sort-type]="sortTypeKeys[sortType.TOP_RATED_FIRST]"
       appSelectOffersSortType

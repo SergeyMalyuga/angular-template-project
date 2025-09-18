@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter,
+  Component,
+  EventEmitter,
   inject,
-  Input, Output,
+  Input,
+  Output,
 } from '@angular/core';
 import { CITY_LOCATIONS } from '../../core/constants/const';
 import { City } from '../../core/models/city';

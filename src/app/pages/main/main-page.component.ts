@@ -1,17 +1,33 @@
-import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal, WritableSignal,} from '@angular/core';
-import {HeaderComponent} from '../../features/header/header.component';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../core/models/app-state';
-import {OfferPreview} from '../../core/models/offers';
-import {City} from '../../core/models/city';
-import {AuthorizationStatus, DEFAULT_CITY, sortType,} from '../../core/constants/const';
-import {combineLatest, map, Subject, takeUntil, tap} from 'rxjs';
-import {selectAuthStatus, selectCity, selectOffers,} from '../../store/app/app.selectors';
-import {OfferListComponent} from '../../features/offer-list/offer-list.component';
-import {CitiesListComponent} from '../../features/cities-list/cities-list.component';
-import {OffersSortingOptionsComponent} from '../../features/offers-sorting-options/offers-sorting-options.component';
-import {OffersSortPipe} from './pipes/offers-sort.pipe';
-import {OffersSortService} from '../../core/services/offers-sort.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
+import { HeaderComponent } from '../../features/header/header.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../core/models/app-state';
+import { OfferPreview } from '../../core/models/offers';
+import { City } from '../../core/models/city';
+import {
+  AuthorizationStatus,
+  DEFAULT_CITY,
+  sortType,
+} from '../../core/constants/const';
+import { combineLatest, map, Subject, takeUntil, tap } from 'rxjs';
+import {
+  selectAuthStatus,
+  selectCity,
+  selectOffers,
+} from '../../store/app/app.selectors';
+import { OfferListComponent } from '../../features/offer-list/offer-list.component';
+import { CitiesListComponent } from '../../features/cities-list/cities-list.component';
+import { OffersSortingOptionsComponent } from '../../features/offers-sorting-options/offers-sorting-options.component';
+import { OffersSortPipe } from './pipes/offers-sort.pipe';
+import { OffersSortService } from '../../core/services/offers-sort.service';
 
 @Component({
   selector: 'app-main',

@@ -1,7 +1,15 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal, WritableSignal,} from '@angular/core';
-import {sortType, sortTypeKeys} from '../../core/constants/const';
-import {ToggleSortOptionsDirective} from './directives/toggle-offers-sorting-options.directive';
-import {SelectOffersSortTypeDirective} from './directives/select-offers-sort-type.directive';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
+import { sortType, sortTypeKeys } from '../../core/constants/const';
+import { ToggleSortOptionsDirective } from './directives/toggle-offers-sorting-options.directive';
+import { SelectOffersSortTypeDirective } from './directives/select-offers-sort-type.directive';
 
 @Component({
   selector: 'app-offers-sorting-options',
@@ -10,7 +18,7 @@ import {SelectOffersSortTypeDirective} from './directives/select-offers-sort-typ
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OffersSortingOptionsComponent {
-  @Input({required:true}) currentSortType!: sortType;
+  @Input({ required: true }) currentSortType!: sortType;
   @Output() sortTypeSelected: EventEmitter<sortType> =
     new EventEmitter<sortType>();
 
