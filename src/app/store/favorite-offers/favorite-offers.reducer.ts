@@ -1,11 +1,13 @@
-import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
-import {OfferPreview} from '../../core/models/offers';
-import {FavoriteOffersState} from '../../core/models/favorite-offers.state';
-import {createReducer, on} from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter } from '@ngrx/entity';
+import { OfferPreview } from '../../core/models/offers';
+import { FavoriteOffersState } from '../../core/models/favorite-offers.state';
+import { createReducer, on } from '@ngrx/store';
 import {
+  changeFavoriteOffer,
+  changeFavoriteOfferSuccess,
   loadFavoriteOffers,
   loadFavoriteOffersFailure,
-  loadFavoriteOffersSuccess
+  loadFavoriteOffersSuccess,
 } from './actions/favorite-offers.actions';
 
 export const favoriteOffersAdapter: EntityAdapter<OfferPreview> =
@@ -22,10 +24,18 @@ export const favoriteOffersReducer = createReducer(
   on(loadFavoriteOffers, (state) => ({
     ...state,
   })),
-  on(loadFavoriteOffersSuccess, (state, {favoriteOffers}) =>
-    favoriteOffersAdapter.setAll(favoriteOffers, {...state})
+  on(loadFavoriteOffersSuccess, (state, { favoriteOffers }) =>
+    favoriteOffersAdapter.setAll(favoriteOffers, { ...state }),
   ),
   on(loadFavoriteOffersFailure, (state) => ({
     ...state,
-  }))
+    isLoading: false,
+  })),
+  on(changeFavoriteOffer, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+  on(changeFavoriteOfferSuccess, (state, { offers }) =>
+    favoriteOffersAdapter.setAll(offers, { ...state, isLoading: false }),
+  ),
 );

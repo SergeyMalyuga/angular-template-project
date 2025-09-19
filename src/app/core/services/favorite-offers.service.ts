@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { OfferPreview } from '../models/offers';
+import { Offer, OfferPreview } from '../models/offers';
 import { APIRoute, BASE_URL } from '../constants/const';
 import { Observable } from 'rxjs';
 
@@ -12,5 +12,12 @@ export class FavoriteOffersService {
 
   public getFavoriteOffers(): Observable<OfferPreview[]> {
     return this.http.get<OfferPreview[]>(`${BASE_URL}/${APIRoute.FAVORITE}`);
+  }
+
+  public addFavoriteOffer(offerId: string, status: string) {
+    return this.http.post<Offer>(
+      `${BASE_URL}/${APIRoute.FAVORITE}/${offerId}/${status}`,
+      {},
+    );
   }
 }

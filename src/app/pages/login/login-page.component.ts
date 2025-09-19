@@ -7,8 +7,8 @@ import { login } from '../../store/user/actions/user.actions';
 import { LoginRequest } from '../../core/models/login-request';
 import { Router } from '@angular/router';
 import { AppRoute } from '../../core/constants/const';
-import {loadFavoriteOffers} from '../../store/favorite-offers/actions/favorite-offers.actions';
-import {loadOffersData} from '../../store/offers/actions/offers.actions';
+import { loadFavoriteOffers } from '../../store/favorite-offers/actions/favorite-offers.actions';
+import { loadOffersData } from '../../store/offers/actions/offers.actions';
 
 @Component({
   selector: 'app-login',

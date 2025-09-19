@@ -4,7 +4,7 @@ import { AppState } from './core/models/app.state';
 import { Store } from '@ngrx/store';
 import { loadOffersData } from './store/offers/actions/offers.actions';
 import { checkAuthStatus } from './store/user/actions/user.actions';
-import {loadFavoriteOffers} from './store/favorite-offers/actions/favorite-offers.actions';
+import { loadFavoriteOffers } from './store/favorite-offers/actions/favorite-offers.actions';
 
 @Component({
   selector: 'app-root',
