@@ -14,23 +14,44 @@
       </div>
       <nav class="header__nav">
         <ul class="header__nav-list">
-          <li class="header__nav-item user">
-            <a
-              class="header__nav-link header__nav-link--profile"
-              [routerLink]="AppRoute.FAVORITES"
-            >
-              <div class="header__avatar-wrapper user__avatar-wrapper"></div>
-              <span class="header__user-name user__name"
-                >Oliver.conner&#64;gmail.com</span
+          @if (authStatus() === AuthorizationStatus.AUTH) {
+            <li class="header__nav-item user">
+              <a
+                class="header__nav-link header__nav-link--profile"
+                [routerLink]="AppRoute.FAVORITES"
               >
-              <span class="header__favorite-count">{{
-                favoriteOffers().length
-              }}</span>
-            </a>
-          </li>
+                <div class="header__avatar-wrapper user__avatar-wrapper"></div>
+                <span class="header__user-name user__name">{{
+                  userEmail()
+                }}</span>
+                <span class="header__favorite-count">{{
+                  favoriteOffers().length
+                }}</span>
+              </a>
+            </li>
+          }
           <li class="header__nav-item">
-            <a class="header__nav-link" [routerLink]="AppRoute.LOGIN">
-              <span class="header__signout">Sign out</span>
+            <a
+              class="header__nav-link"
+              [routerLink]="
+                authStatus() === AuthorizationStatus.AUTH
+                  ? AppRoute.MAIN
+                  : AppRoute.LOGIN
+              "
+            >
+              <span
+                appLogoutClick
+                (logout)="onLogout()"
+                [attr.data-logout]="
+                  authStatus() === AuthorizationStatus.AUTH ? 'true' : null
+                "
+                class="header__signout"
+                >{{
+                  authStatus() === AuthorizationStatus.AUTH
+                    ? "Sign out"
+                    : "Log in"
+                }}</span
+              >
             </a>
           </li>
         </ul>

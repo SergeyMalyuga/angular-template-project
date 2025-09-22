@@ -9,6 +9,7 @@ export enum AppRoute {
 
 export enum APIRoute {
   LOGIN = 'login',
+  LOGOUT = 'logout',
   COMMENTS = 'comments',
   FAVORITE = 'favorite',
   OFFERS = 'offers',

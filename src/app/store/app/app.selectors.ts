@@ -5,6 +5,7 @@ import { offersAdapter } from '../offers/offers.reducer';
 import { UserState } from '../../core/models/user.state';
 import { favoriteOffersAdapter } from '../favorite-offers/favorite-offers.reducer';
 import { FavoriteOffersState } from '../../core/models/favorite-offers.state';
+import { OffersState } from '../../core/models/offers.state';
 
 const selectCityState = createFeatureSelector<AppState['city']>('city');
 const selectOffersState = createFeatureSelector<AppState['offers']>('offers');
@@ -25,6 +26,11 @@ export const selectOffers = createSelector(
   offersSelectors.selectAll,
 );
 
+export const selectIsLoading = createSelector(
+  selectOffersState,
+  (state: OffersState) => state.isLoading,
+);
+
 export const selectFavoriteOffers = createSelector(
   selectFavoriteOffersSate,
   favoriteOffersSelectors.selectAll,
@@ -38,4 +44,8 @@ export const selectFavoriteOfferIsLoading = createSelector(
 export const selectAuthStatus = createSelector(
   selectUserState,
   (state: UserState) => state.authorizationStatus,
+);
+export const selectUserEmail = createSelector(
+  selectUserState,
+  (state: UserState) => state.user?.email,
 );

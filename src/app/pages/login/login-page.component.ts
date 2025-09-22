@@ -6,9 +6,11 @@ import { Store } from '@ngrx/store';
 import { login } from '../../store/user/actions/user.actions';
 import { LoginRequest } from '../../core/models/login-request';
 import { Router } from '@angular/router';
-import { AppRoute } from '../../core/constants/const';
+import { AppRoute, AuthorizationStatus } from '../../core/constants/const';
 import { loadFavoriteOffers } from '../../store/favorite-offers/actions/favorite-offers.actions';
 import { loadOffersData } from '../../store/offers/actions/offers.actions';
+import { selectAuthStatus } from '../../store/app/app.selectors';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -32,12 +34,24 @@ export class LoginPageComponent {
 
   public onSubmit() {
     const { email, password } = this.formGroup.getRawValue();
-    if (this.formGroup.valid && email !== null && password !== null) {
-      const credentials: LoginRequest = { email, password };
-      this.store.dispatch(login({ credentials }));
-      this.store.dispatch(loadFavoriteOffers());
-      this.store.dispatch(loadOffersData());
-      this.router.navigate([AppRoute.MAIN]);
+    if (this.formGroup.valid) {
+      if (email && password) {
+        const credentials: LoginRequest = { email, password };
+        this.store.dispatch(login({ credentials }));
+      }
+      this.store
+        .select(selectAuthStatus)
+        .pipe(
+          filter(
+            (auth: AuthorizationStatus) => auth === AuthorizationStatus.AUTH,
+          ),
+          take(1),
+        )
+        .subscribe(() => {
+          this.store.dispatch(loadFavoriteOffers());
+          this.store.dispatch(loadOffersData());
+          this.router.navigate([AppRoute.MAIN]);
+        });
     }
   }
 }

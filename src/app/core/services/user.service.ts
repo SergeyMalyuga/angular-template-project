@@ -20,7 +20,7 @@ export class UserService {
     });
   }
 
-  public deleteUser(): void {
-    this.http.delete(`${BASE_URL}/${APIRoute.LOGIN}`);
+  public deleteUser(): Observable<void> {
+    return this.http.delete<void>(`${BASE_URL}/${APIRoute.LOGOUT}`);
   }
 }

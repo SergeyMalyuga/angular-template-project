@@ -22,3 +22,7 @@ export const loginSuccess = createAction(
   props<{ user: User }>(),
 );
 export const loginFailure = createAction('[Login component] Login Failure');
+
+export const logout = createAction('[Main component] Logout');
+export const logoutSuccess = createAction('[Main component] Logout success');
+export const logoutFailure = createAction('[Main component] Logout failure');

@@ -16,6 +16,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoginEffects } from './store/user/effects/login.effects';
 import { FavoriteOffersEffects } from './store/favorite-offers/effects/favorite-offers.effects';
 import { AddFavoriteOfferEffects } from './store/favorite-offers/effects/add-favorite-offer.effects';
+import { LogoutEffects } from './store/user/effects/logout.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
       LoginEffects,
       FavoriteOffersEffects,
       AddFavoriteOfferEffects,
+      LogoutEffects,
     ),
     provideHttpClient(withInterceptorsFromDi()),
     {

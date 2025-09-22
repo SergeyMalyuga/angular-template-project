@@ -1,58 +1,62 @@
-<div class="page page--gray page--main">
-  <app-header></app-header>
-  <main
-    class="page__main page__main--index"
-    [class.page__main--index-empty]="offers().length === 0"
-  >
-    <h1 class="visually-hidden">Cities</h1>
-    <div class="tabs">
-      <section class="locations container">
-        <app-cities-list
-          [currentCity]="currentCity()"
-          (citySelected)="onCitySelected()"
-        ></app-cities-list>
-      </section>
-    </div>
-    <div class="cities">
-      <div
-        [class]="
-          'cities__places-container' +
-          ' cities__places-container--empty' +
-          ' container'
-        "
-      >
-        @if (offers().length === 0) {
-          <section class="cities__no-places">
-            <div class="cities__status-wrapper tabs__content">
-              <b class="cities__status">No places to stay available</b>
-              <p class="cities__status-description">
-                We could not find any property available at the moment in
-                {{ currentCity().name }}
-              </p>
-            </div>
-          </section>
-          <div class="cities__right-section"></div>
-        } @else {
-          <section class="cities__places places">
-            <h2 class="visually-hidden">Places</h2>
-            <b class="places__found"
-              >{{ offers().length }}
-              {{ offers().length > 1 ? "places" : "place" }} to stay in
-              {{ currentCity().name }}</b
-            >
-            <app-offers-sorting-options
-              [currentSortType]="currentSortType()"
-              (sortTypeSelected)="onSortTypeSelected($event)"
-            ></app-offers-sorting-options>
-            <app-offers-list
-              [offers]="offers() | appOffersSort: currentSortType()"
-            ></app-offers-list>
-          </section>
-          <div class="cities__right-section">
-            <section class="cities__map map"></section>
-          </div>
-        }
+@if (isLoading()) {
+  <app-loader></app-loader>
+} @else {
+  <div class="page page--gray page--main">
+    <app-header></app-header>
+    <main
+      class="page__main page__main--index"
+      [class.page__main--index-empty]="offers().length === 0"
+    >
+      <h1 class="visually-hidden">Cities</h1>
+      <div class="tabs">
+        <section class="locations container">
+          <app-cities-list
+            [currentCity]="currentCity()"
+            (citySelected)="onCitySelected()"
+          ></app-cities-list>
+        </section>
       </div>
-    </div>
-  </main>
-</div>
+      <div class="cities">
+        <div
+          [class]="
+            'cities__places-container' +
+            ' cities__places-container--empty' +
+            ' container'
+          "
+        >
+          @if (offers().length === 0) {
+            <section class="cities__no-places">
+              <div class="cities__status-wrapper tabs__content">
+                <b class="cities__status">No places to stay available</b>
+                <p class="cities__status-description">
+                  We could not find any property available at the moment in
+                  {{ currentCity().name }}
+                </p>
+              </div>
+            </section>
+            <div class="cities__right-section"></div>
+          } @else {
+            <section class="cities__places places">
+              <h2 class="visually-hidden">Places</h2>
+              <b class="places__found"
+                >{{ offers().length }}
+                {{ offers().length > 1 ? "places" : "place" }} to stay in
+                {{ currentCity().name }}</b
+              >
+              <app-offers-sorting-options
+                [currentSortType]="currentSortType()"
+                (sortTypeSelected)="onSortTypeSelected($event)"
+              ></app-offers-sorting-options>
+              <app-offers-list
+                [offers]="offers() | appOffersSort: currentSortType()"
+              ></app-offers-list>
+            </section>
+            <div class="cities__right-section">
+              <section class="cities__map map"></section>
+            </div>
+          }
+        </div>
+      </div>
+    </main>
+  </div>
+}
