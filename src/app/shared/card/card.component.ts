@@ -19,13 +19,14 @@ import {
   selectFavoriteOfferIsLoading,
 } from '../../store/app/app.selectors';
 import { filter, finalize, Subject, take, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ToggleFavoriteOfferDirective],
+  imports: [ToggleFavoriteOfferDirective, RouterLink, CapitalizePipe],
 })
 export class CardComponent implements OnInit, OnDestroy {
   @Input({ required: true }) offer!: OfferPreview;
@@ -73,4 +74,6 @@ export class CardComponent implements OnInit, OnDestroy {
       this.router.navigate([AppRoute.LOGIN]);
     }
   }
+
+  protected readonly AppRoute = AppRoute;
 }

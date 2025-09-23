@@ -20,7 +20,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: AppRoute.OFFER,
+    path: `${AppRoute.OFFER}/:id`,
     title: 'Offer',
     loadComponent: () =>
       import('./pages/offer/offer-page.component').then(
