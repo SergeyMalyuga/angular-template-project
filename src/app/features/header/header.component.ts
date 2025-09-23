@@ -54,12 +54,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userEmail.set(userName);
         this.authStatus.set(authStatus);
       });
-    /*  this.store
-        .select(selectFavoriteOffers)
-        .pipe(takeUntil(this.destroySubject))
-        .subscribe((offers: OfferPreview[]): void => {
-          this.favoriteOffers.set(offers);
-        });*/
   }
 
   ngOnDestroy(): void {
