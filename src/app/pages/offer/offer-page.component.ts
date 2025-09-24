@@ -22,11 +22,16 @@ import { AuthorizationStatus } from '../../core/constants/const';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/models/app.state';
 import { selectAuthStatus } from '../../store/app/app.selectors';
-import {CommentFormComponent} from '../../features/comment-form/comment-form.component';
+import { CommentFormComponent } from '../../features/comment-form/comment-form.component';
 
 @Component({
   selector: 'app-offer',
-  imports: [HeaderComponent, CapitalizePipe, CommentComponent, CommentFormComponent],
+  imports: [
+    HeaderComponent,
+    CapitalizePipe,
+    CommentComponent,
+    CommentFormComponent,
+  ],
   templateUrl: './offer-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

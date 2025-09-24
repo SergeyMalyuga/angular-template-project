@@ -19,10 +19,10 @@ export class CommentService {
   public postComment(
     comment: string,
     rating: number,
-    offerId: string,
+    offerId: string | undefined,
   ): Observable<Comment> {
     return this.http.post<Comment>(
-      `/${BASE_URL}/${APIRoute.COMMENTS}/${offerId}`,
+      `${BASE_URL}/${APIRoute.COMMENTS}/${offerId}`,
       { comment, rating },
     );
   }

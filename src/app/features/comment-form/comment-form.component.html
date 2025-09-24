@@ -1,7 +1,14 @@
-<form class="reviews__form form" action="#" method="post">
+<form
+  (ngSubmit)="onSubmit()"
+  class="reviews__form form"
+  action="#"
+  method="post"
+  [formGroup]="commentForm"
+>
   <label class="reviews__label form__label" for="review">Your review</label>
   <div class="reviews__rating-form form__rating">
     <input
+      formControlName="rating"
       class="form__rating-input visually-hidden"
       name="rating"
       value="5"
@@ -19,6 +26,7 @@
     </label>
 
     <input
+      formControlName="rating"
       class="form__rating-input visually-hidden"
       name="rating"
       value="4"
@@ -36,6 +44,7 @@
     </label>
 
     <input
+      formControlName="rating"
       class="form__rating-input visually-hidden"
       name="rating"
       value="3"
@@ -53,6 +62,7 @@
     </label>
 
     <input
+      formControlName="rating"
       class="form__rating-input visually-hidden"
       name="rating"
       value="2"
@@ -70,6 +80,7 @@
     </label>
 
     <input
+      formControlName="rating"
       class="form__rating-input visually-hidden"
       name="rating"
       value="1"
@@ -87,6 +98,7 @@
     </label>
   </div>
   <textarea
+    formControlName="comment"
     class="reviews__textarea form__textarea"
     id="review"
     name="review"
@@ -101,7 +113,7 @@
     <button
       class="reviews__submit form__submit button"
       type="submit"
-      disabled=""
+      [disabled]="commentForm.invalid"
     >
       Submit
     </button>

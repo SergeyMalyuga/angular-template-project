@@ -105,7 +105,7 @@
               }
             </ul>
             @if (authStatus() === AuthorizationStatus.AUTH) {
-              <app-comment-form></app-comment-form>
+              <app-comment-form [offerId]="offer()?.id"></app-comment-form>
             }
           </section>
         </div>
