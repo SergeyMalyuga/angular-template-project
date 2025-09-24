@@ -25,7 +25,11 @@
     <p class="reviews__text">
       {{ comment.comment }}
     </p>
-    <time class="reviews__time" attr.datetime="{{ comment.date ? (comment.date | dateFormat: true) : '' }}"
+    <time
+      class="reviews__time"
+      attr.datetime="{{
+        comment.date ? (comment.date | dateFormat: true) : ''
+      }}"
       >{{ comment.date | dateFormat: false }}
     </time>
   </div>

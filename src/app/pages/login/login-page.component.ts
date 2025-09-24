@@ -5,7 +5,7 @@ import { AppState } from '../../core/models/app.state';
 import { Store } from '@ngrx/store';
 import { login } from '../../store/user/actions/user.actions';
 import { LoginRequest } from '../../core/models/login-request';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AppRoute, AuthorizationStatus } from '../../core/constants/const';
 import { loadFavoriteOffers } from '../../store/favorite-offers/actions/favorite-offers.actions';
 import { loadOffersData } from '../../store/offers/actions/offers.actions';
@@ -14,7 +14,7 @@ import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, RouterLink],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,4 +54,6 @@ export class LoginPageComponent {
         });
     }
   }
+
+  protected readonly AppRoute = AppRoute;
 }

@@ -17,11 +17,16 @@ import { CapitalizePipe } from '../../shared/card/pipes/capitalize.pipe';
 import { Comment } from '../../core/models/comments';
 import { CommentService } from '../../core/services/comment.service';
 import { Subject, takeUntil } from 'rxjs';
-import {CommentComponent} from '../../features/comment/comment.component';
+import { CommentComponent } from '../../features/comment/comment.component';
+import { AuthorizationStatus } from '../../core/constants/const';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../core/models/app.state';
+import { selectAuthStatus } from '../../store/app/app.selectors';
+import {CommentFormComponent} from '../../features/comment-form/comment-form.component';
 
 @Component({
   selector: 'app-offer',
-  imports: [HeaderComponent, CapitalizePipe, CommentComponent],
+  imports: [HeaderComponent, CapitalizePipe, CommentComponent, CommentFormComponent],
   templateUrl: './offer-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -34,6 +39,8 @@ export class OfferPageComponent implements OnDestroy {
   public comments: WritableSignal<Comment[] | null> = signal<Comment[] | null>(
     null,
   );
+  public authStatus: WritableSignal<AuthorizationStatus> =
+    signal<AuthorizationStatus>(AuthorizationStatus.UNKNOWN);
   public readonly Math = Math;
 
   private offerService = inject(OffersService);
@@ -41,11 +48,18 @@ export class OfferPageComponent implements OnDestroy {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private commentService: CommentService = inject(CommentService);
   private destroySubject: Subject<void> = new Subject<void>();
+  private store: Store<AppState> = inject(Store<AppState>);
 
   constructor() {
-    this.route.paramMap.subscribe((params) =>
-      this.offerId.set(params.get('id')),
-    );
+    this.route.paramMap
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe((params) => this.offerId.set(params.get('id')));
+    this.store
+      .select(selectAuthStatus)
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe((authStatus: AuthorizationStatus) =>
+        this.authStatus.set(authStatus),
+      );
     effect(() => {
       const id: string | null = this.offerId();
       if (id) {
@@ -65,4 +79,6 @@ export class OfferPageComponent implements OnDestroy {
     this.destroySubject.next();
     this.destroySubject.complete();
   }
+
+  protected readonly AuthorizationStatus = AuthorizationStatus;
 }
