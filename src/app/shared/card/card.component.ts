@@ -9,18 +9,15 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { OfferPreview } from '../../core/models/offers';
-import { ToggleFavoriteOfferDirective } from './directives/toggle-favorite-offer.directive';
+import { ToggleFavoriteOfferDirective } from '../directives/toggle-favorite-offer.directive';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/models/app.state';
-import { changeFavoriteOffer } from '../../store/favorite-offers/actions/favorite-offers.actions';
 import { AppRoute, AuthorizationStatus } from '../../core/constants/const';
-import {
-  selectAuthStatus,
-  selectFavoriteOfferIsLoading,
-} from '../../store/app/app.selectors';
-import { filter, finalize, Subject, take, takeUntil } from 'rxjs';
+import { selectAuthStatus } from '../../store/app/app.selectors';
+import { Subject, takeUntil } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { FavoriteOffersService } from '../../core/services/favorite-offers.service';
 
 @Component({
   selector: 'app-card',
@@ -39,6 +36,9 @@ export class CardComponent implements OnInit, OnDestroy {
     signal<AuthorizationStatus>(AuthorizationStatus.UNKNOWN);
   private destroySubject = new Subject<void>();
   private router = inject(Router);
+  private favoriteOffersService: FavoriteOffersService = inject(
+    FavoriteOffersService,
+  );
 
   ngOnInit(): void {
     this.isFavorite = this.offer?.isFavorite ?? false;
@@ -54,26 +54,15 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   handleFavoriteOfferToggled() {
-    if (this.authStatus() === AuthorizationStatus.AUTH) {
-      this.isFavoriteButtonDisabled.set(true);
-      this.store.dispatch(
-        changeFavoriteOffer({
-          offerId: this.offer.id,
-          status: String(+!this.offer.isFavorite),
-        }),
+    this.isFavoriteButtonDisabled.set(true);
+    this.favoriteOffersService
+      .toggleFavorite(this.authStatus(), this.offer)
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe((isDisabled: boolean) =>
+        this.isFavoriteButtonDisabled.set(isDisabled),
       );
-      this.store
-        .select(selectFavoriteOfferIsLoading)
-        .pipe(
-          filter((isLoading: boolean) => isLoading === false),
-          take(1),
-          finalize(() => this.isFavoriteButtonDisabled.set(false)),
-        )
-        .subscribe();
-    } else {
-      this.router.navigate([AppRoute.LOGIN]);
-    }
   }
 
   protected readonly AppRoute = AppRoute;
+  protected readonly Boolean = Boolean;
 }

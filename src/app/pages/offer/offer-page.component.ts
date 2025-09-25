@@ -4,7 +4,6 @@ import {
   effect,
   inject,
   OnDestroy,
-  OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -12,7 +11,7 @@ import { HeaderComponent } from '../../features/header/header.component';
 import { Offer } from '../../core/models/offers';
 import { User } from '../../core/models/user';
 import { OffersService } from '../../core/services/offers.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CapitalizePipe } from '../../shared/card/pipes/capitalize.pipe';
 import { Comment } from '../../core/models/comments';
 import { CommentService } from '../../core/services/comment.service';
@@ -23,6 +22,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../core/models/app.state';
 import { selectAuthStatus } from '../../store/app/app.selectors';
 import { CommentFormComponent } from '../../features/comment-form/comment-form.component';
+import { LoaderComponent } from '../../features/loader/loader.component';
+import { FavoriteOffersService } from '../../core/services/favorite-offers.service';
 
 @Component({
   selector: 'app-offer',
@@ -31,6 +32,7 @@ import { CommentFormComponent } from '../../features/comment-form/comment-form.c
     CapitalizePipe,
     CommentComponent,
     CommentFormComponent,
+    LoaderComponent,
   ],
   templateUrl: './offer-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,13 +49,17 @@ export class OfferPageComponent implements OnDestroy {
   public authStatus: WritableSignal<AuthorizationStatus> =
     signal<AuthorizationStatus>(AuthorizationStatus.UNKNOWN);
   public readonly Math = Math;
+  public isFavoriteButtonDisabled: WritableSignal<boolean> =
+    signal<boolean>(false);
 
   private offerService = inject(OffersService);
-  private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private commentService: CommentService = inject(CommentService);
   private destroySubject: Subject<void> = new Subject<void>();
   private store: Store<AppState> = inject(Store<AppState>);
+  private favoriteOffersService: FavoriteOffersService = inject(
+    FavoriteOffersService,
+  );
 
   constructor() {
     this.route.paramMap
@@ -78,6 +84,22 @@ export class OfferPageComponent implements OnDestroy {
           .subscribe((comments: Comment[]) => this.comments.set(comments));
       }
     });
+  }
+
+  handleFavoriteOfferToggled() {
+    this.isFavoriteButtonDisabled.set(true);
+    this.favoriteOffersService
+      .toggleFavorite(this.authStatus(), this.offer())
+      .pipe(takeUntil(this.destroySubject))
+      .subscribe((isDisabled: boolean) => {
+        this.isFavoriteButtonDisabled.set(isDisabled);
+        this.offer.update((offer) => {
+          if (offer) {
+            return { ...offer, isFavorite: !offer.isFavorite };
+          }
+          return offer;
+        });
+      });
   }
 
   ngOnDestroy(): void {

@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { FavoriteOffersService } from '../../../core/services/favorite-offers.service';
+import { FavoriteOffersApiService } from '../../../core/services/favorite-offers-api.service';
 import * as actions from '../actions/favorite-offers.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class AddFavoriteOfferEffects {
   public actions$: Actions = inject(Actions);
-  public favoriteOfferService: FavoriteOffersService = inject(
-    FavoriteOffersService,
+  public favoriteOfferService: FavoriteOffersApiService = inject(
+    FavoriteOffersApiService,
   );
 
   public addFavoriteOffer$ = createEffect(() =>
