@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   OnDestroy,
@@ -45,6 +46,12 @@ export class OfferPageComponent implements OnDestroy {
   public user: WritableSignal<User | null> = signal<User | null>(null);
   public comments: WritableSignal<Comment[] | null> = signal<Comment[] | null>(
     null,
+  );
+  public sortedComments = computed(() =>
+    this.comments()?.sort(
+      (a: Comment, b: Comment) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime(),
+    ),
   );
   public authStatus: WritableSignal<AuthorizationStatus> =
     signal<AuthorizationStatus>(AuthorizationStatus.UNKNOWN);
@@ -100,6 +107,16 @@ export class OfferPageComponent implements OnDestroy {
           return offer;
         });
       });
+  }
+
+  public onCommentAdded(comment: Comment): void {
+    this.comments.update((comments) => {
+      if (comments) {
+        return [comment, ...comments];
+      } else {
+        return comments;
+      }
+    });
   }
 
   ngOnDestroy(): void {

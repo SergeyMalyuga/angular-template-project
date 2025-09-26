@@ -113,12 +113,15 @@
                 <span class="reviews__amount">{{ comments()?.length }}</span>
               </h2>
               <ul class="reviews__list">
-                @for (comment of comments(); track comment.id) {
+                @for (comment of sortedComments(); track comment.id) {
                   <app-comment [comment]="comment"></app-comment>
                 }
               </ul>
               @if (authStatus() === AuthorizationStatus.AUTH) {
-                <app-comment-form [offerId]="offer()?.id"></app-comment-form>
+                <app-comment-form
+                  (commentAdded)="onCommentAdded($event)"
+                  [offerId]="offer()?.id"
+                ></app-comment-form>
               }
             </section>
           </div>
