@@ -8,23 +8,25 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { HeaderComponent } from '../../features/header/header.component';
-import { Offer } from '../../core/models/offers';
-import { User } from '../../core/models/user';
-import { OffersService } from '../../core/services/offers.service';
-import { ActivatedRoute } from '@angular/router';
-import { CapitalizePipe } from '../../shared/card/pipes/capitalize.pipe';
-import { Comment } from '../../core/models/comments';
-import { CommentService } from '../../core/services/comment.service';
-import { Subject, takeUntil } from 'rxjs';
-import { CommentComponent } from '../../features/comment/comment.component';
-import { AuthorizationStatus } from '../../core/constants/const';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../core/models/app.state';
-import { selectAuthStatus } from '../../store/app/app.selectors';
-import { CommentFormComponent } from '../../features/comment-form/comment-form.component';
-import { LoaderComponent } from '../../features/loader/loader.component';
-import { FavoriteOffersService } from '../../core/services/favorite-offers.service';
+import {HeaderComponent} from '../../features/header/header.component';
+import {Offer, OfferPreview} from '../../core/models/offers';
+import {User} from '../../core/models/user';
+import {OffersService} from '../../core/services/offers.service';
+import {ActivatedRoute} from '@angular/router';
+import {CapitalizePipe} from '../../shared/card/pipes/capitalize.pipe';
+import {Comment} from '../../core/models/comments';
+import {CommentService} from '../../core/services/comment.service';
+import {Subject, takeUntil} from 'rxjs';
+import {CommentComponent} from '../../features/comment/comment.component';
+import {AuthorizationStatus, QUANTITY_FIRST_OFFERS} from '../../core/constants/const';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../core/models/app.state';
+import {selectAuthStatus} from '../../store/app/app.selectors';
+import {CommentFormComponent} from '../../features/comment-form/comment-form.component';
+import {LoaderComponent} from '../../features/loader/loader.component';
+import {FavoriteOffersService} from '../../core/services/favorite-offers.service';
+import {CardComponent} from '../../shared/card/card.component';
+import {TakeFirstOffersPipe} from './pipes/take-first-offers.pipe';
 
 @Component({
   selector: 'app-offer',
@@ -34,6 +36,8 @@ import { FavoriteOffersService } from '../../core/services/favorite-offers.servi
     CommentComponent,
     CommentFormComponent,
     LoaderComponent,
+    CardComponent,
+    TakeFirstOffersPipe,
   ],
   templateUrl: './offer-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,6 +62,7 @@ export class OfferPageComponent implements OnDestroy {
   public readonly Math = Math;
   public isFavoriteButtonDisabled: WritableSignal<boolean> =
     signal<boolean>(false);
+  public nearbyOffers: WritableSignal<OfferPreview[]> = signal<OfferPreview[]>([]);
 
   private offerService = inject(OffersService);
   private route: ActivatedRoute = inject(ActivatedRoute);
@@ -85,6 +90,7 @@ export class OfferPageComponent implements OnDestroy {
           .getOfferById(id)
           .pipe(takeUntil(this.destroySubject))
           .subscribe((offer) => this.offer.set(offer));
+        this.offerService.getNearbyOffers(id).pipe(takeUntil(this.destroySubject)).subscribe((offers) => this.nearbyOffers.set(offers));
         this.commentService
           .getComments(id)
           .pipe(takeUntil(this.destroySubject))
@@ -102,7 +108,7 @@ export class OfferPageComponent implements OnDestroy {
         this.isFavoriteButtonDisabled.set(isDisabled);
         this.offer.update((offer) => {
           if (offer) {
-            return { ...offer, isFavorite: !offer.isFavorite };
+            return {...offer, isFavorite: !offer.isFavorite};
           }
           return offer;
         });
@@ -125,4 +131,5 @@ export class OfferPageComponent implements OnDestroy {
   }
 
   protected readonly AuthorizationStatus = AuthorizationStatus;
+  protected readonly QUANTITY_FIRST_OFFERS = QUANTITY_FIRST_OFFERS;
 }

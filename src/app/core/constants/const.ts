@@ -96,6 +96,8 @@ export const sortTypeKeys = {
   [sortType.TOP_RATED_FIRST]: 'TOP_RATED_FIRST',
 };
 
+export const QUANTITY_FIRST_OFFERS = 3;
+
 export const DEFAULT_USER = undefined;
 
 export const AUTH_TOKEN_KEY_NAME = 'auth-token';

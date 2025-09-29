@@ -38,7 +38,6 @@ export class CommentFormComponent {
   public onSubmit() {
     if (this.commentForm.valid) {
       const { comment, rating } = this.commentForm.value;
-      console.log(this.commentForm.value);
       this.commentService
         .postComment(comment, Number(rating), this.offerId)
         .pipe(takeUntil(this.destroySubject))

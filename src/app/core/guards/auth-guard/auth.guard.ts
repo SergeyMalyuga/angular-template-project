@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean | UrlTree> {
     return this.store.select(selectAuthStatus).pipe(
       filter((status: AuthorizationStatus) => {
-        console.log(status);
         return status !== AuthorizationStatus.UNKNOWN;
       }),
       take(1),

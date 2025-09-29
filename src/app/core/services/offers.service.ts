@@ -17,4 +17,8 @@ export class OffersService {
   public getOfferById(id: string): Observable<Offer> {
     return this.http.get<Offer>(`${BASE_URL}/${APIRoute.OFFERS}/${id}`);
   }
+
+  public getNearbyOffers(id: string): Observable<OfferPreview[]> {
+    return this.http.get<OfferPreview[]>(`${BASE_URL}/${APIRoute.OFFERS}/${id}/nearby`);
+}
 }
