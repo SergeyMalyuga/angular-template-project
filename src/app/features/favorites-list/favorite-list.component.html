@@ -1,0 +1,9 @@
+<ul class="favorites__list">
+  @if (sortedOffers) {
+    @for (key of Object.keys(sortedOffers); track key) {
+      @if (isKeyOf(key)) {
+        <app-favorite-item [city]="key" [offers]="sortedOffers[key]"></app-favorite-item>
+      }
+    }
+  }
+</ul>
